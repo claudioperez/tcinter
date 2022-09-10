@@ -19,6 +19,9 @@ message("Python : ${Python_INCLUDE_DIRS}")
 message("Tcl:     ${TCL_INCLUDE_PATH}")
 
 target_include_directories(tcinter PRIVATE ${TCL_INCLUDE_PATH} ${Python_INCLUDE_DIRS})
-target_link_libraries(tcinter PRIVATE ${TK_LIBRARY} ${TCL_LIBRARY} ${Python_LIBRARIES})
+target_link_libraries(tcinter PRIVATE 
+  # ${TK_LIBRARY} 
+  ${TCL_LIBRARY} 
+  ${Python_LIBRARIES})
 
 install(TARGETS tcinter LIBRARY DESTINATION .)

@@ -43,13 +43,15 @@ Copyright (C) 1994 Steen Lumholt.
 #include <Tk/tk.h>
 #else
 #include <tcl.h>
-#include <tk.h>
+// #include <tk.h>
 #endif
 
 #include "tkinter.h"
 
+#ifdef TC_USE_TK
 #if TK_HEX_VERSION < 0x08040200
 #error "Tk older than 8.4 not supported"
+#endif
 #endif
 
 #if TK_HEX_VERSION >= 0x08050208 && TK_HEX_VERSION < 0x08060000 || \
@@ -673,13 +675,13 @@ Tcl_AppInit(Tcl_Interp *interp)
         return TCL_OK;
     }
 
+#if 0
 #ifdef TKINTER_PROTECT_LOADTK
     if (tk_load_failed) {
         PySys_WriteStderr("Tk_Init error: %s\n", TKINTER_LOADTK_ERRMSG);
         return TCL_ERROR;
     }
 #endif
-#if 0
     if (Tk_Init(interp) == TCL_ERROR) {
 #ifdef TKINTER_PROTECT_LOADTK
         tk_load_failed = 1;
@@ -1631,6 +1633,7 @@ _tkinter_tkapp_eval_impl(TkappObject *self, const char *script)
     ENTER_TCL
     err = Tcl_Eval(Tkapp_Interp(self), script);
     ENTER_OVERLAP
+
     if (err == TCL_ERROR)
         res = Tkinter_Error(self);
     else
@@ -3052,6 +3055,7 @@ _tkinter_tkapp_loadtk_impl(TkappObject *self)
         return NULL;
     }
     if (_tk_exists == NULL || strcmp(_tk_exists, "1") != 0)     {
+#if 0
         if (Tk_Init(interp)             == TCL_ERROR) {
             Tkinter_Error(self);
 #ifdef TKINTER_PROTECT_LOADTK
@@ -3059,6 +3063,9 @@ _tkinter_tkapp_loadtk_impl(TkappObject *self)
 #endif
             return NULL;
         }
+#endif
+            Tkinter_Error(self); // cmp
+            return NULL;         // cmp
     }
     Py_RETURN_NONE;
 }
@@ -3450,10 +3457,12 @@ EnableEventHook(void)
 static void
 DisableEventHook(void)
 {
+#if 0
 #ifdef WAIT_FOR_STDIN
     if (Tk_GetNumMainWindows() == 0 && PyOS_InputHook == EventHook) {
         PyOS_InputHook = NULL;
     }
+#endif
 #endif
 }
 
@@ -3532,10 +3541,12 @@ PyInit__tcinter(void)
         Py_DECREF(m);
         return NULL;
     }
+#if 0
     if (PyModule_AddStringConstant(m, "TK_VERSION", TK_VERSION)) {
         Py_DECREF(m);
         return NULL;
     }
+#endif
     if (PyModule_AddStringConstant(m, "TCL_VERSION", TCL_VERSION)) {
         Py_DECREF(m);
         return NULL;
