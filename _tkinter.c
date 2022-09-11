@@ -39,60 +39,58 @@ Copyright (C) 1994 Steen Lumholt.
 #define TCL_THREADS
 
 #ifdef TK_FRAMEWORK
-#include <Tcl/tcl.h>
-#include <Tk/tk.h>
+#  include <Tcl/tcl.h>
+// #  include <Tk/tk.h>
 #else
-#include <tcl.h>
+#  include <tcl.h>
 // #include <tk.h>
 #endif
 
 #include "tkinter.h"
 
 #ifdef TC_USE_TK
-#if TK_HEX_VERSION < 0x08040200
-#error "Tk older than 8.4 not supported"
-#endif
+#  if TK_HEX_VERSION < 0x08040200
+#    error "Tk older than 8.4 not supported"
+#  endif
 #endif
 
 #if TK_HEX_VERSION >= 0x08050208 && TK_HEX_VERSION < 0x08060000 || \
     TK_HEX_VERSION >= 0x08060200
-#define HAVE_LIBTOMMATH
+#  define HAVE_LIBTOMMATH
 #include <tclTomMath.h>
 #endif
 
 #if !(defined(MS_WINDOWS) || defined(__CYGWIN__))
-#define HAVE_CREATEFILEHANDLER
+#  define HAVE_CREATEFILEHANDLER
 #endif
 
 #ifdef HAVE_CREATEFILEHANDLER
 
-/* This bit is to ensure that TCL_UNIX_FD is defined and doesn't interfere
-   with the proper calculation of FHANDLETYPE == TCL_UNIX_FD below. */
-#ifndef TCL_UNIX_FD
-#  ifdef TCL_WIN_SOCKET
-#    define TCL_UNIX_FD (! TCL_WIN_SOCKET)
-#  else
-#    define TCL_UNIX_FD 1
+  /* This bit is to ensure that TCL_UNIX_FD is defined and doesn't interfere
+     with the proper calculation of FHANDLETYPE == TCL_UNIX_FD below. */
+#  ifndef TCL_UNIX_FD
+#    ifdef TCL_WIN_SOCKET
+#      define TCL_UNIX_FD (! TCL_WIN_SOCKET)
+#    else
+#      define TCL_UNIX_FD 1
+#    endif
 #  endif
-#endif
 
-/* Tcl_CreateFileHandler() changed several times; these macros deal with the
-   messiness.  In Tcl 8.0 and later, it is not available on Windows (and on
-   Unix, only because Jack added it back); when available on Windows, it only
-   applies to sockets. */
+  /* Tcl_CreateFileHandler() changed several times; these macros deal with the
+     messiness.  In Tcl 8.0 and later, it is not available on Windows (and on
+     Unix, only because Jack added it back); when available on Windows, it only
+     applies to sockets. */
+#  ifdef MS_WINDOWS
+#    define FHANDLETYPE TCL_WIN_SOCKET
+#  else
+#    define FHANDLETYPE TCL_UNIX_FD
+#  endif
 
-#ifdef MS_WINDOWS
-#define FHANDLETYPE TCL_WIN_SOCKET
-#else
-#define FHANDLETYPE TCL_UNIX_FD
-#endif
-
-/* If Tcl can wait for a Unix file descriptor, define the EventHook() routine
-   which uses this to handle Tcl events while the user is typing commands. */
-
-#if FHANDLETYPE == TCL_UNIX_FD
-#define WAIT_FOR_STDIN
-#endif
+  /* If Tcl can wait for a Unix file descriptor, define the EventHook() routine
+     which uses this to handle Tcl events while the user is typing commands. */
+#  if FHANDLETYPE == TCL_UNIX_FD
+#    define WAIT_FOR_STDIN
+#  endif
 
 #endif /* HAVE_CREATEFILEHANDLER */
 
@@ -103,20 +101,20 @@ Copyright (C) 1994 Steen Lumholt.
    On Linux use UTF-8 with the "surrogateescape" error handler for converting
    to/from Tcl String objects. */
 #ifdef MS_WINDOWS
-#define USE_TCL_UNICODE 1
+#  define USE_TCL_UNICODE 1
 #else
-#define USE_TCL_UNICODE 0
+#  define USE_TCL_UNICODE 0
 #endif
 
 #if PY_LITTLE_ENDIAN
-#define NATIVE_BYTEORDER -1
+#  define NATIVE_BYTEORDER -1
 #else
-#define NATIVE_BYTEORDER 1
+#  define NATIVE_BYTEORDER 1
 #endif
 
 #ifdef MS_WINDOWS
-#include <conio.h>
-#define WAIT_FOR_STDIN
+#  include <conio.h>
+#  define WAIT_FOR_STDIN
 
 static PyObject *
 _get_tcl_lib_path()
@@ -151,7 +149,7 @@ _get_tcl_lib_path()
             /* install location doesn't exist, reset errno and see if
                we're a repository build */
             errno = 0;
-#ifdef Py_TCLTK_DIR
+#  ifdef Py_TCLTK_DIR
             tcl_library_path = PyUnicode_FromString(
                                     Py_TCLTK_DIR "\\lib\\tcl" TCL_VERSION);
             if (tcl_library_path == NULL) {
@@ -167,9 +165,9 @@ _get_tcl_lib_path()
                 errno = 0;
                 tcl_library_path = NULL;
             }
-#else
+#  else
             tcl_library_path = NULL;
-#endif
+#  endif
         }
         already_checked = 1;
     }
