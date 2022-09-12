@@ -58,9 +58,14 @@ class TclShell(cmd.Cmd):
         self.tcl_interp = interp.TclInterpreter()
         super().__init__(*args, **kwds)
 
+    def do_exit(self, arg):
+        return True
+
     def default(self, arg):
         try:
             value = self.tcl_interp.eval(arg)
+            if value:
+                print(value)
             return None
         #except _tkinter.TclError as e:
         except Exception as e:
