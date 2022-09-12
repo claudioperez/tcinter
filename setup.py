@@ -5,6 +5,8 @@ from os.path import basename, splitext
 
 import amoeba
 import setuptools
+import distutils.sysconfig as sysconfig
+
 
 if __name__ == "__main__":
     setuptools.setup(
@@ -15,7 +17,10 @@ if __name__ == "__main__":
                 install_prefix="opensees",
                 cmake_configure_options = [
                     "-G", "Unix Makefiles",
-                    f"-DPYTHON_EXECUTABLE:FILEPATH={sys.executable}"
+                    f"-DPython_EXECUTABLE:FILEPATH={sys.executable}",
+                    f"-DPython_ROOT_DIR:FILEPATH={sys.base_prefix}",
+                    f"-DPython_INCLUDE_DIR:FILEPATH={sysconfig.get_python_inc()}",
+                    f"-DPython_LIBRARY:FILEPATH={sysconfig.get_config_var('LIBDIR')}"
                 ],
             )
         ]
