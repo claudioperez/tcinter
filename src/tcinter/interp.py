@@ -6,7 +6,6 @@ try:
 except:
     import tcinter as tkinter
 
-from opensees.obj import Component
 
 def TclInterpreter(verbose=False, tcl_lib=None):
     interp = tkinter.Tcl()
@@ -71,7 +70,6 @@ class TclRuntime:
         return self._c_domain
 
     def getNodeResponse(self, node, typ):
-        import numpy as np
         return np.array(self._domain.getNodeResponse(node, typ))
 
     def getTime(self):
