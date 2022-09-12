@@ -663,7 +663,7 @@ Tcl_AppInit(Tcl_Interp *interp)
 
     if (Tcl_Init(interp) == TCL_ERROR) {
         PySys_WriteStderr("Tcl_Init error: %s\n", Tcl_GetStringResult(interp));
-        return TCL_ERROR;
+        // return TCL_ERROR;
     }
 
     _tkinter_skip_tk_init = Tcl_GetVar(interp,
