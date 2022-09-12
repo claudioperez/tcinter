@@ -7,8 +7,8 @@ except:
     import tcinter as tkinter
 
 
-def TclInterpreter(verbose=False, tcl_lib=None):
-    interp = tkinter.Tcl()
+def TclInterpreter(verbose=False, tcl_lib=None, init='puts ""'):
+    interp = tkinter.Tcl(init=init)
     return interp
 
 def eval(script: str):

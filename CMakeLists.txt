@@ -17,7 +17,7 @@ find_package(TCL)
 find_package(Python COMPONENTS Interpreter Development)
 
 message("Python : ${Python_INCLUDE_DIRS}")
-message("Tcl:     ${TCL_INCLUDE_PATH}")
+message("Tcl:     ${TCL_TCLSH}")
 
 target_include_directories(tcinter PRIVATE ${TCL_INCLUDE_PATH} ${Python_INCLUDE_DIRS})
 target_link_libraries(tcinter PRIVATE 

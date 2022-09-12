@@ -2397,8 +2397,8 @@ class Tk(Misc, Wm):
 # copied into the Pack, Place or Grid class.
 
 
-def Tcl(screenName=None, baseName=None, className='Tk', useTk=False):
-    return Tk(screenName, baseName, className, useTk)
+def Tcl(screenName=None, baseName=None, className='Tk', useTk=False, init=None):
+    return Tk(screenName, baseName, className, useTk, use=init)
 
 
 class Pack:

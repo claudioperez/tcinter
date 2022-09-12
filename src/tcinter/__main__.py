@@ -49,13 +49,14 @@ def enqueue_output(out, queue):
 
 
 class TclShell(cmd.Cmd):
-    intro = """         
+    intro = """\
     TcInter - A Python wrapper for Tcl without Tk
 """
     prompt = PROMPT
     file = None
     def __init__(self, *args, **kwds):
-        self.tcl_interp = interp.TclInterpreter()
+        self.tcl_interp = interp.TclInterpreter(init='puts ""')
+        self.tcl_interp.eval("set ::tcl_interactive 1")
         super().__init__(*args, **kwds)
 
     def do_exit(self, arg):

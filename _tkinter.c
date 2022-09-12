@@ -803,13 +803,14 @@ Tkapp_New(const char *screenName, const char *className,
         args[0] = '\0';
         if (sync)
             strcat(args, "-sync");
+#if 0
         if (use) {
             if (sync)
                 strcat(args, " ");
             strcat(args, "-use ");
             strcat(args, use);
         }
-
+#endif
         Tcl_SetVar(v->interp, "argv", args, TCL_GLOBAL_ONLY);
         PyMem_Free(args);
     }
@@ -840,8 +841,10 @@ Tkapp_New(const char *screenName, const char *className,
         }
     }
 #endif
+    
+    if (use && (Tcl_EvalEx(v->interp, use, -1, TCL_EVAL_GLOBAL) != TCL_ERROR)) {
 
-    if (Tcl_AppInit(v->interp) != TCL_OK) {
+    } else if (Tcl_AppInit(v->interp) != TCL_OK) {
         PyObject *result = Tkinter_Error(v);
 #ifdef TKINTER_PROTECT_LOADTK
         if (wantTk) {
