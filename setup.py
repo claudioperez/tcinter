@@ -14,7 +14,7 @@ if __name__ == "__main__":
         ext_modules = [
             amoeba.CMakeExtension(
                 name = "rt",
-                install_prefix="opensees",
+                install_prefix="tcinter",
                 cmake_configure_options = [
                     "-G", "Unix Makefiles",
                     f"-DPython_EXECUTABLE:FILEPATH={sys.executable}",

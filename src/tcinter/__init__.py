@@ -34,14 +34,14 @@ import enum
 import sys
 import types
 
-import _tcinter # If this fails your Python may not be configured for Tk
+from . import _tcinter # If this fails your Python may not be configured for Tk
 TclError = _tcinter.TclError
 from tcinter.constants import *
 import re
 
 wantobjects = 1
 
-TkVersion = float(_tcinter.TK_VERSION)
+#TkVersion = float(_tcinter.TK_VERSION)
 TclVersion = float(_tcinter.TCL_VERSION)
 
 READABLE = _tcinter.READABLE
