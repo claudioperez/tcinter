@@ -2,7 +2,10 @@
 #define TKINTER_H
 /* cmp  **************************************/
 #ifndef Py_TPFLAGS_DISALLOW_INSTANTIATION
-#define Py_TPFLAGS_DISALLOW_INSTANTIATION (1UL << 7)
+#  define Py_TPFLAGS_DISALLOW_INSTANTIATION (1UL << 7)
+#endif
+#ifndef Py_IS_TYPE
+#  define Py_IS_TYPE(obj, typ) (Py_TYPE(obj) == typ)
 #endif
 /*********************************************/
 
