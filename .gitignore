@@ -18,3 +18,4 @@ src/tcinter/colorchooser.py
 src/tcinter/commondialog.py
 src/tcinter/dnd.py
 src/tcinter/simpledialog.py
+src/tcinter/font.py
