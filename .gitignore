@@ -14,3 +14,7 @@ src/tcinter/scrolledtext.py
 src/tcinter/test/
 src/tcinter/tix.py
 src/tcinter/ttk.py
+src/tcinter/colorchooser.py
+src/tcinter/commondialog.py
+src/tcinter/dnd.py
+src/tcinter/simpledialog.py
