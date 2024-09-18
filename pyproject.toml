@@ -25,13 +25,6 @@ keywords = [
 dependencies = [
 ]
 
-[project.optional-dependencies]
-testing = [
-]
-
-docs = [
-]
-
 [project.urls]
 Repository = "http://github.com/claudioperez/tcinter"
 
