@@ -41,10 +41,8 @@ where = ["src"]
 
 
 [tool.cibuildwheel]
-skip = ["pp*", "*musllinux*", "cp36*", "*i686*", "UNKNOWN*"] #, "cp38*", "cp37*"] # , "cp39*", "cp311*"]
-#manylinux-x86_64-image = "manylinux_2_28"
+skip = ["*win32*", "pp*", "*musllinux*", "cp3[678]*", "*i686*", "UNKNOWN*"] #, "cp38*", "cp37*"] # , "cp39*", "cp311*"]
 manylinux-x86_64-image="manylinux2014"
-# manylinux-x86_64-image="manylinux_2_24"
 
 # [tool.cibuildwheel.windows]
 # before-build="pip install delvewheel"
