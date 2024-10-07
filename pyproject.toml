@@ -43,7 +43,7 @@ where = ["src"]
 tcinter=["conanfile.txt", "*.so", "*.dll", "*.dylib"]
 
 [tool.cibuildwheel]
-test-command = "python -c 'import tcinter'"
+test-command = 'python -c "import tcinter"'
 skip = ["*win32*", "pp*", "*musllinux*", "cp3[678]*", "*i686*", "UNKNOWN*"]
 manylinux-x86_64-image="manylinux2014"
 
