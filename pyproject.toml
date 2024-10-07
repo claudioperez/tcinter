@@ -1,6 +1,6 @@
 [project]
 name = "tcinter"
-version = "0.0.4"
+version = "0.0.6"
 authors = [
   {name="Claudio M. Perez"}
   # <50180406+claudioperez@users.noreply.github.com>"
@@ -39,9 +39,12 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+tcinter=["conanfile.txt", "*.so", "*.dll", "*.dylib"]
 
 [tool.cibuildwheel]
-skip = ["*win32*", "pp*", "*musllinux*", "cp3[678]*", "*i686*", "UNKNOWN*"] #, "cp38*", "cp37*"] # , "cp39*", "cp311*"]
+test-command = "python -c 'import tcinter'"
+skip = ["*win32*", "pp*", "*musllinux*", "cp3[678]*", "*i686*", "UNKNOWN*"]
 manylinux-x86_64-image="manylinux2014"
 
 # [tool.cibuildwheel.windows]

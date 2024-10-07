@@ -2,17 +2,15 @@
 
 import sys
 import cmd
-import tcinter._tcinter as _tkinter
 
 __version__="0.0.0"
 
 import tcinter.interp as interp
 
 HELP = """\
-usage: opensees <file> [args]...
+usage: tcinter <file> [args]...
 """
 
-#PROMPT = "\033\\[01;32mopensees\033\\[0m > "
 PROMPT = "\u001b[35mtcl\u001b[0m > "
 
 # Path to Tcl script which loads commands
@@ -68,7 +66,6 @@ class TclShell(cmd.Cmd):
             if value:
                 print(value)
             return None
-        #except _tkinter.TclError as e:
         except Exception as e:
             print(e)
 
