@@ -32,9 +32,11 @@ tk.mainloop()
 
 import enum
 import sys
+import os
 import types
 
 from . import _tcinter # If this fails your Python may not be configured for Tk
+
 TclError = _tcinter.TclError
 from tcinter.constants import *
 import re
