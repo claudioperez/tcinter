@@ -7,10 +7,19 @@ find_package(TCL REQUIRED)
 find_package(Python COMPONENTS Interpreter Development)
 
 add_library(tcinter SHARED)
+if (WIN32)
 target_link_libraries(tcinter PRIVATE 
   tcl::tcl 
   ${Python_LIBRARIES}
 )
+else()
+target_link_libraries(tcinter PRIVATE 
+  ${TCL_LIBRARY}
+  ${Python_LIBRARIES}
+)
+target_include_directories(tcinter PRIVATE ${TCL_INCLUDE_PATH})
+endif()
+
 
 target_sources(tcinter PRIVATE _tkinter.c _tkinter.c.h tkinter.h)
 target_include_directories(tcinter PRIVATE ${Python_INCLUDE_DIRS})
