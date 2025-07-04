@@ -1,3 +1,5 @@
+# `tcinter`
+
 The purpose of this package is to provide an interface to Tcl like that provided by the Python standard module `tkinter`,
 on installations where `tkinter` is not included. Features from Tk are not supported. 
 
